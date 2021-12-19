@@ -1,6 +1,7 @@
 package com.richard.wiki.controller;
 
 import com.richard.wiki.domain.Ebook;
+import com.richard.wiki.resp.CommonResp;
 import com.richard.wiki.service.EbookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,12 @@ public class EbookController {
     private EbookService ebookService;
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<Ebook> list() {
-        return ebookService.list();
+    public CommonResp list() {
+        CommonResp<List<Ebook>> resp = new CommonResp<>();
+        List<Ebook> list = ebookService.list();
+        resp.setContent(list);
+
+        return resp;
     }
 
 }

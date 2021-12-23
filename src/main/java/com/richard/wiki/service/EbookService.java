@@ -9,6 +9,7 @@ import com.richard.wiki.util.CopyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class EbookService {
 
     public List<EbookResp> list(EbookReq req) {
         EbookExample ebookExample = new EbookExample();
-        if (!StringUtils.isEmpty(req.getName())) {
+        if (!ObjectUtils.isEmpty(req.getName())) {
             ebookExample.createCriteria().andNameLike("%" + req.getName() + "%");
         }
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);

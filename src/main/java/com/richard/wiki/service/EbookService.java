@@ -1,5 +1,7 @@
 package com.richard.wiki.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.richard.wiki.domain.Ebook;
 import com.richard.wiki.domain.EbookExample;
 import com.richard.wiki.mapper.EbookMapper;
@@ -26,10 +28,21 @@ public class EbookService {
         if (!ObjectUtils.isEmpty(req.getName())) {
             ebookExample.createCriteria().andNameLike("%" + req.getName() + "%");
         }
+
+        PageHelper.startPage(1,3);
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
+        PageInfo<Ebook> pageInfo = new PageInfo<>(ebookList);
 
         // 列表复制
-        List<EbookResp> list = CopyUtil.copyList(ebookList,EbookResp.class);
+        //List<EbookResp> list = CopyUtil.copyList(ebookList,EbookResp.class);
+        List<EbookResp> list = new ArrayList<>();
+        for (Ebook ebook : ebookList) {
+            EbookResp ebookResp = new EbookResp();
+            ebookResp.setId(ebook.getId());
+            ebookResp.setName(ebook.getName());
+            ebookResp.setDescription(ebook.getDescription());
+            list.add(ebookResp);
+        }
 
         return list;
     }

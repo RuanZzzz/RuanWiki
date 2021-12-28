@@ -8,6 +8,8 @@ import com.richard.wiki.mapper.EbookMapper;
 import com.richard.wiki.req.Req;
 import com.richard.wiki.resp.EbookResp;
 import com.richard.wiki.resp.PageResp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Service
 public class EbookService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(EbookService.class);
 
     @Autowired
     private EbookMapper ebookMapper;

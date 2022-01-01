@@ -1,5 +1,12 @@
 package com.richard.wiki.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ebook {
     private Long id;
 

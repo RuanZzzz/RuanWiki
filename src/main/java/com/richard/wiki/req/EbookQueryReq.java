@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class Req extends PageReq {
+public class EbookQueryReq extends PageReq {
 
     @ApiModelProperty(name = "电子书id")
     private Long id;

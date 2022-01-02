@@ -9,6 +9,7 @@ import com.richard.wiki.req.EbookQueryReq;
 import com.richard.wiki.req.EbookSaveReq;
 import com.richard.wiki.resp.EbookQueryResp;
 import com.richard.wiki.resp.PageResp;
+import com.richard.wiki.util.SnowFlake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,12 @@ public class EbookService {
     @Autowired
     private EbookMapper ebookMapper;
 
+    @Autowired
+    private SnowFlake snowFlake;
+
     public PageResp<EbookQueryResp> list(EbookQueryReq ebookQueryReq) {
         EbookExample ebookExample = new EbookExample();
+        ebookExample.setOrderByClause("id desc");
         if (!ObjectUtils.isEmpty(ebookQueryReq.getName())) {
             ebookExample.createCriteria().andNameLike("%" + ebookQueryReq.getName() + "%");
         }
@@ -59,12 +64,13 @@ public class EbookService {
      * 保存
      */
     public void save(EbookSaveReq req) {
-
         if (ObjectUtils.isEmpty(req.getId())) {
             // 新增
+            Ebook ebook = Ebook.builder().id(snowFlake.nextId()).name(req.getName()).description(req.getDescription()).build();
+            ebookMapper.insert(ebook);
         }else {
-            Ebook ebook = Ebook.builder().id(req.getId()).name(req.getName()).build();
-            ebookMapper.updateByPrimaryKey(ebook);
+            Ebook ebook = Ebook.builder().id(req.getId()).name(req.getName()).description(req.getDescription()).build();
+            ebookMapper.updateByPrimaryKeySelective(ebook);
         }
 
     }

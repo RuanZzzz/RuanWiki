@@ -72,7 +72,14 @@ public class EbookService {
             Ebook ebook = Ebook.builder().id(req.getId()).name(req.getName()).description(req.getDescription()).build();
             ebookMapper.updateByPrimaryKeySelective(ebook);
         }
+    }
 
+    /**
+     * 删除
+     * @param id 待删除的id
+     */
+    public void delete(Long id) {
+        ebookMapper.deleteByPrimaryKey(id);
     }
 
 }

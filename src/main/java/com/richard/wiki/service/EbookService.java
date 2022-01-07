@@ -47,6 +47,7 @@ public class EbookService {
         for (Ebook ebook : ebookList) {
             EbookQueryResp ebookQueryResp = new EbookQueryResp();
             ebookQueryResp.setId(ebook.getId());
+            ebookQueryResp.setCover("http://127.0.0.1:8084/wiki/" + ebook.getCover());
             ebookQueryResp.setName(ebook.getName());
             ebookQueryResp.setDescription(ebook.getDescription());
             list.add(ebookQueryResp);
@@ -66,7 +67,7 @@ public class EbookService {
     public void save(EbookSaveReq req) {
         if (ObjectUtils.isEmpty(req.getId())) {
             // 新增
-            Ebook ebook = Ebook.builder().id(snowFlake.nextId()).name(req.getName()).description(req.getDescription()).build();
+            Ebook ebook = Ebook.builder().id(snowFlake.nextId()).name(req.getName()).description(req.getDescription()).cover(req.getImgDirPath()).build();
             ebookMapper.insert(ebook);
         }else {
             Ebook ebook = Ebook.builder().id(req.getId()).name(req.getName()).description(req.getDescription()).build();

@@ -26,4 +26,6 @@ public class EbookSaveReq {
 
     private Integer voteCount;
 
+    private String imgDirPath;
+
 }

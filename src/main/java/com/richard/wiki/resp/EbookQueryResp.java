@@ -15,4 +15,6 @@ public class EbookQueryResp {
 
     private String description;
 
+    private String cover;
+
 }

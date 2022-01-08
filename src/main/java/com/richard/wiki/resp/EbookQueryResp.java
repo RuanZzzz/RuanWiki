@@ -15,6 +15,10 @@ public class EbookQueryResp {
 
     private String description;
 
+    // cover：列表显示图片的地址
     private String cover;
+
+    // dirPath：用于编辑使用的地址
+    private String imgName;
 
 }

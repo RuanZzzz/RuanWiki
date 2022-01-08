@@ -13,6 +13,7 @@ import com.richard.wiki.util.SnowFlake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -21,6 +22,8 @@ import java.util.List;
 
 @Service
 public class EbookService {
+    @Value("${server.name}")
+    private String serverName;
 
     private static final Logger LOG = LoggerFactory.getLogger(EbookService.class);
 
@@ -47,7 +50,8 @@ public class EbookService {
         for (Ebook ebook : ebookList) {
             EbookQueryResp ebookQueryResp = new EbookQueryResp();
             ebookQueryResp.setId(ebook.getId());
-            ebookQueryResp.setCover("http://127.0.0.1:8084/wiki/" + ebook.getCover());
+            ebookQueryResp.setCover(this.serverName + ebook.getCover());
+            ebookQueryResp.setImgName(ebook.getCover());
             ebookQueryResp.setName(ebook.getName());
             ebookQueryResp.setDescription(ebook.getDescription());
             list.add(ebookQueryResp);
@@ -70,7 +74,7 @@ public class EbookService {
             Ebook ebook = Ebook.builder().id(snowFlake.nextId()).name(req.getName()).description(req.getDescription()).cover(req.getImgDirPath()).build();
             ebookMapper.insert(ebook);
         }else {
-            Ebook ebook = Ebook.builder().id(req.getId()).name(req.getName()).description(req.getDescription()).build();
+            Ebook ebook = Ebook.builder().id(req.getId()).name(req.getName()).description(req.getDescription()).cover(req.getImgDirPath()).build();
             ebookMapper.updateByPrimaryKeySelective(ebook);
         }
     }

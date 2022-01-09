@@ -26,7 +26,7 @@ public class CategoryService {
 
     public PageResp<CategoryQueryResp> list(CategoryQueryReq categoryQueryReq) {
         CategoryExample categoryExample = new CategoryExample();
-        //categoryExample.setOrderByClause("id desc");
+        categoryExample.setOrderByClause("sort asc");
 
         PageHelper.startPage(categoryQueryReq.getPage(),categoryQueryReq.getPageSize());
         List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
@@ -48,6 +48,28 @@ public class CategoryService {
         pageResp.setList(list);
 
         return pageResp;
+    }
+
+    /**
+     * 返回所有分类数据
+     * @return
+     */
+    public List<CategoryQueryResp> all() {
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.setOrderByClause("sort asc");
+        List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
+
+        List<CategoryQueryResp> list = new ArrayList<>();
+        for (Category category : categoryList) {
+            CategoryQueryResp categoryQueryResp = new CategoryQueryResp();
+            categoryQueryResp.setId(category.getId());
+            categoryQueryResp.setName(category.getName());
+            categoryQueryResp.setSort(category.getSort());
+            categoryQueryResp.setParent(category.getParent());
+            list.add(categoryQueryResp);
+        }
+
+        return list;
     }
 
 }

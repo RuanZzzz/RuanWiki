@@ -6,11 +6,13 @@ import com.richard.wiki.domain.Category;
 import com.richard.wiki.domain.CategoryExample;
 import com.richard.wiki.mapper.CategoryMapper;
 import com.richard.wiki.req.CategoryQueryReq;
+import com.richard.wiki.req.CategorySaveReq;
 import com.richard.wiki.resp.CategoryQueryResp;
 import com.richard.wiki.resp.PageResp;
 import com.richard.wiki.util.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,18 @@ public class CategoryService {
         }
 
         return list;
+    }
+
+    public void save(CategorySaveReq req) {
+        if (ObjectUtils.isEmpty(req.getId())) {
+            // 新增
+            Category category = Category.builder().id(snowFlake.nextId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
+            categoryMapper.insert(category);
+        }else {
+            // 编辑
+            Category category = Category.builder().id(req.getId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
+            categoryMapper.updateByPrimaryKeySelective(category);
+        }
     }
 
 }

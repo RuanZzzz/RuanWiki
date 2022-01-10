@@ -1,11 +1,13 @@
 package com.richard.wiki.controller;
 
 import com.richard.wiki.req.CategoryQueryReq;
+import com.richard.wiki.req.CategorySaveReq;
 import com.richard.wiki.resp.CategoryQueryResp;
 import com.richard.wiki.resp.CommonResp;
 import com.richard.wiki.resp.PageResp;
 import com.richard.wiki.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +36,13 @@ public class CategoryController {
         List<CategoryQueryResp> list = categoryService.all();
         resp.setContent(list);
 
+        return resp;
+    }
+
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    public CommonResp save(@RequestBody CategorySaveReq req) {
+        CommonResp resp = new CommonResp();
+        categoryService.save(req);
         return resp;
     }
 

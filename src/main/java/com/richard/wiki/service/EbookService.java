@@ -51,6 +51,8 @@ public class EbookService {
             EbookQueryResp ebookQueryResp = new EbookQueryResp();
             ebookQueryResp.setId(ebook.getId());
             ebookQueryResp.setCover(this.serverName + ebook.getCover());
+            ebookQueryResp.setCategory1Id(ebook.getCategoryId1());
+            ebookQueryResp.setCategory2Id(ebook.getCategoryId2());
             ebookQueryResp.setImgName(ebook.getCover());
             ebookQueryResp.setName(ebook.getName());
             ebookQueryResp.setDescription(ebook.getDescription());
@@ -71,10 +73,10 @@ public class EbookService {
     public void save(EbookSaveReq req) {
         if (ObjectUtils.isEmpty(req.getId())) {
             // 新增
-            Ebook ebook = Ebook.builder().id(snowFlake.nextId()).name(req.getName()).description(req.getDescription()).cover(req.getImgDirPath()).build();
+            Ebook ebook = Ebook.builder().id(snowFlake.nextId()).name(req.getName()).categoryId1(req.getCategory1Id()).categoryId2(req.getCategory2Id()).description(req.getDescription()).cover(req.getImgDirPath()).build();
             ebookMapper.insert(ebook);
         }else {
-            Ebook ebook = Ebook.builder().id(req.getId()).name(req.getName()).description(req.getDescription()).cover(req.getImgDirPath()).build();
+            Ebook ebook = Ebook.builder().id(req.getId()).name(req.getName()).categoryId1(req.getCategory1Id()).categoryId2(req.getCategory2Id()).description(req.getDescription()).cover(req.getImgDirPath()).build();
             ebookMapper.updateByPrimaryKeySelective(ebook);
         }
     }

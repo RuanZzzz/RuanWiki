@@ -12,9 +12,9 @@ public class EbookSaveReq {
     @NotNull(message = "名称不能为空")
     private String name;
 
-    private Long categoryId1;
+    private Long category1Id;
 
-    private Long categoryId2;
+    private Long category2Id;
 
     private String description;
 

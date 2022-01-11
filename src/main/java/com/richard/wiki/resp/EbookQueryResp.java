@@ -21,4 +21,8 @@ public class EbookQueryResp {
     // dirPath：用于编辑使用的地址
     private String imgName;
 
+    private Long category1Id;
+
+    private Long category2Id;
+
 }

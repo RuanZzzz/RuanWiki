@@ -35,9 +35,13 @@ public class EbookService {
 
     public PageResp<EbookQueryResp> list(EbookQueryReq ebookQueryReq) {
         EbookExample ebookExample = new EbookExample();
+        EbookExample.Criteria ebookCriteria = ebookExample.createCriteria();
         ebookExample.setOrderByClause("id desc");
         if (!ObjectUtils.isEmpty(ebookQueryReq.getName())) {
-            ebookExample.createCriteria().andNameLike("%" + ebookQueryReq.getName() + "%");
+            ebookCriteria.andNameLike("%" + ebookQueryReq.getName() + "%");
+        }
+        if (!ObjectUtils.isEmpty(ebookQueryReq.getCategoryId2())) {
+            ebookCriteria.andCategoryId2EqualTo(ebookQueryReq.getCategoryId2());
         }
 
         PageHelper.startPage(ebookQueryReq.getPage(), ebookQueryReq.getPageSize());

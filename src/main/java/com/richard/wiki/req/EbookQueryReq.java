@@ -6,10 +6,13 @@ import lombok.Data;
 @Data
 public class EbookQueryReq extends PageReq {
 
-    @ApiModelProperty(name = "电子书id")
+    @ApiModelProperty(value = "电子书id")
     private Long id;
 
-    @ApiModelProperty(name = "电子书name")
+    @ApiModelProperty(value = "电子书name")
     private String name;
+
+    @ApiModelProperty(value = "分类2的id")
+    private Long categoryId2;
 
 }

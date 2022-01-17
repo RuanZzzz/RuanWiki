@@ -3,10 +3,12 @@ package com.richard.wiki.service;
 import com.richard.wiki.domain.Doc;
 import com.richard.wiki.domain.DocExample;
 import com.richard.wiki.mapper.DocMapper;
+import com.richard.wiki.req.DocSaveReq;
 import com.richard.wiki.resp.DocQueryResp;
 import com.richard.wiki.util.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,4 +44,15 @@ public class DocService {
         return list;
     }
 
+    public void save(DocSaveReq req) {
+        if (ObjectUtils.isEmpty(req.getId())) {
+            // 新增
+            Doc doc = Doc.builder().id(snowFlake.nextId()).ebookId(req.getEbookId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
+            docMapper.insert(doc);
+        }else {
+            // 编辑
+            Doc doc = Doc.builder().id(req.getId()).ebookId(req.getEbookId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
+            docMapper.updateByPrimaryKeySelective(doc);
+        }
+    }
 }

@@ -1,9 +1,11 @@
 package com.richard.wiki.controller;
 
+import com.richard.wiki.req.DocSaveReq;
 import com.richard.wiki.resp.CommonResp;
 import com.richard.wiki.resp.DocQueryResp;
 import com.richard.wiki.service.DocService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +29,13 @@ public class DocController {
         List<DocQueryResp> list = docService.all();
         resp.setContent(list);
 
+        return resp;
+    }
+
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    private CommonResp save(@RequestBody DocSaveReq req) {
+        CommonResp resp = new CommonResp();
+        docService.save(req);
         return resp;
     }
 

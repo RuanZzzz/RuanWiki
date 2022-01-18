@@ -55,4 +55,11 @@ public class DocService {
             docMapper.updateByPrimaryKeySelective(doc);
         }
     }
+
+    public void delete(List<String> idStr) {
+        DocExample docExample = new DocExample();
+        docExample.createCriteria().andIdIn(idStr);
+        docMapper.deleteByExample(docExample);
+    }
+
 }

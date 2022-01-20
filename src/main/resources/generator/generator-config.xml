@@ -40,6 +40,6 @@
                              targetPackage="com.richard.wiki.mapper"
                              type="XMLMAPPER"/>
 
-        <table tableName="doc" />
+        <table tableName="content" />
     </context>
 </generatorConfiguration>

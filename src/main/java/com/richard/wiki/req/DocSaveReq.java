@@ -19,4 +19,7 @@ public class DocSaveReq {
 
     @NotNull(message = "顺序不能为空")
     private Integer sort;
+
+    @NotNull(message = "内容不能为空")
+    private String content;
 }

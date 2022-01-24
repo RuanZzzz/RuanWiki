@@ -3,6 +3,7 @@ package com.richard.wiki.controller;
 import com.richard.wiki.req.DocSaveReq;
 import com.richard.wiki.resp.CommonResp;
 import com.richard.wiki.resp.DocQueryResp;
+import com.richard.wiki.resp.PageResp;
 import com.richard.wiki.service.DocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,14 @@ public class DocController {
         CommonResp resp = new CommonResp();
         List<String> list =  Arrays.asList(idStr.split(","));
         docService.delete(list);
+        return resp;
+    }
+
+    @RequestMapping(value = "/find-content/{id}",method = RequestMethod.GET)
+    public CommonResp findContent(@PathVariable Long id) {
+        CommonResp<String> resp = new CommonResp<>();
+        String content = docService.findContent(id);
+        resp.setContent(content);
         return resp;
     }
 

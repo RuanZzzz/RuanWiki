@@ -22,10 +22,10 @@ public class DocController {
      * 返回文档所有信息
      * @return
      */
-    @RequestMapping(value = "/all",method = RequestMethod.GET)
-    private CommonResp all() {
+    @RequestMapping(value = "/all/{ebookId}",method = RequestMethod.GET)
+    private CommonResp all(@PathVariable Long ebookId) {
         CommonResp<List<DocQueryResp>> resp = new CommonResp<>();
-        List<DocQueryResp> list = docService.all();
+        List<DocQueryResp> list = docService.all(ebookId);
         resp.setContent(list);
 
         return resp;

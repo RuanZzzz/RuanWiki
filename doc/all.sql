@@ -74,6 +74,10 @@ create table `content` (
   primary key (`id`)
 ) engine=innodb default charset=utf8mb4 comment='文档内容';
 
+insert into `user` (id,login_name,name,password) values (1, 'ruanshaoxiang', '软烧香', '123456');
+insert into `user` (id,login_name,name,password) values (2, 'chihu', '赤狐', '123456');
+insert into `user` (id,login_name,name,password) values (3, 'aguang', '阿光', '123456');
+
 -- 用户表
 drop table if exists `user`;
 create table `user` (

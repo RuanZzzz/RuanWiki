@@ -72,6 +72,7 @@ public class UserService {
         }else {
             // 如果传了id，则进行更新
             User user = User.builder().id(req.getId()).name(req.getName()).loginName(req.getLoginName()).password(req.getPassword()).build();
+            userMapper.updateByPrimaryKey(user);
         }
     }
 

@@ -22,7 +22,7 @@ public class UserSaveReq {
 
     @ApiModelProperty(value = "密码")
     @NotNull(message = "密码不能为空")
-    @Pattern(regexp = "\"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$", message = "密码至少包含数字和英文，长度为6～20")
+    //@Pattern(regexp = "\"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$", message = "密码至少包含数字和英文，长度为6～20")
     private String password;
 
 }

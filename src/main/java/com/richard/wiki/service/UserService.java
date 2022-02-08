@@ -15,6 +15,7 @@ import com.richard.wiki.util.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.DigestUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class UserService {
         if (ObjectUtils.isEmpty(req.getId())) {
             if (ObjectUtils.isEmpty(checkByLoginName(req.getLoginName()))) {
                 // 如果没有传id，则进行保存
-                User user = User.builder().id(snowFlake.nextId()).loginName(req.getLoginName()).name(req.getName()).password(req.getPassword()).build();
+                User user = User.builder().id(snowFlake.nextId()).loginName(req.getLoginName()).name(req.getName()).password(DigestUtils.md5DigestAsHex(req.getPassword().getBytes())).build();
                 userMapper.insert(user);
             }else {
                 // 提示用户名已经存在
@@ -79,7 +80,7 @@ public class UserService {
             }
         }else {
             // 如果传了id，则进行更新
-            User user = User.builder().id(req.getId()).name(req.getName()).password(req.getPassword()).build();
+            User user = User.builder().id(req.getId()).name(req.getName()).password(DigestUtils.md5DigestAsHex(req.getPassword().getBytes())).build();
             userMapper.updateByPrimaryKeySelective(user);
         }
     }

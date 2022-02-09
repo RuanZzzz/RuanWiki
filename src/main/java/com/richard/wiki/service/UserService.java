@@ -80,7 +80,7 @@ public class UserService {
             }
         }else {
             // 如果传了id，则进行更新
-            User user = User.builder().id(req.getId()).name(req.getName()).password(DigestUtils.md5DigestAsHex(req.getPassword().getBytes())).build();
+            User user = User.builder().id(req.getId()).name(req.getName()).build();
             userMapper.updateByPrimaryKeySelective(user);
         }
     }

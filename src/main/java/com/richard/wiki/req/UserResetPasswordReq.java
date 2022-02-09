@@ -7,18 +7,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Data
-public class UserSaveReq {
+public class UserResetPasswordReq {
 
     @ApiModelProperty(value = "用户id")
     private Long id;
-
-    @ApiModelProperty(value = "登录名")
-    @NotNull(message = "登录名不能为空")
-    private String loginName;
-
-    @ApiModelProperty(value = "昵称")
-    @NotNull(message = "用户名不能为空")
-    private String name;
 
     @ApiModelProperty(value = "密码")
     @NotNull(message = "密码不能为空")

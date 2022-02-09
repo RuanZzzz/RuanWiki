@@ -8,6 +8,7 @@ import com.richard.wiki.exception.BusinessException;
 import com.richard.wiki.exception.BusinessExceptionCode;
 import com.richard.wiki.mapper.UserMapper;
 import com.richard.wiki.req.UserQueryReq;
+import com.richard.wiki.req.UserResetPasswordReq;
 import com.richard.wiki.req.UserSaveReq;
 import com.richard.wiki.resp.PageResp;
 import com.richard.wiki.resp.UserQueryResp;
@@ -103,6 +104,15 @@ public class UserService {
         }else {
             return userList.get(0);
         }
+    }
+
+    /**
+     * 修改密码
+     * @param req 传入的密码
+     */
+    public void resetPassword(UserResetPasswordReq req) {
+        User user = User.builder().id(req.getId()).password(DigestUtils.md5DigestAsHex(req.getPassword().getBytes())).build();
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
 }

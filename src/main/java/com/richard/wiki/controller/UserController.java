@@ -1,6 +1,7 @@
 package com.richard.wiki.controller;
 
 import com.richard.wiki.req.UserQueryReq;
+import com.richard.wiki.req.UserResetPasswordReq;
 import com.richard.wiki.req.UserSaveReq;
 import com.richard.wiki.resp.CommonResp;
 import com.richard.wiki.resp.PageResp;
@@ -41,6 +42,14 @@ public class UserController {
         userService.delete(id);
 
         return  resp;
+    }
+
+    @RequestMapping(value = "/reset-password",method = RequestMethod.POST)
+    public CommonResp resetPassword(@Valid @RequestBody UserResetPasswordReq req) {
+        CommonResp resp = new CommonResp();
+        userService.resetPassword(req);
+
+        return resp;
     }
 
 }

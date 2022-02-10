@@ -1,10 +1,12 @@
 package com.richard.wiki.controller;
 
+import com.richard.wiki.req.UserLoginReq;
 import com.richard.wiki.req.UserQueryReq;
 import com.richard.wiki.req.UserResetPasswordReq;
 import com.richard.wiki.req.UserSaveReq;
 import com.richard.wiki.resp.CommonResp;
 import com.richard.wiki.resp.PageResp;
+import com.richard.wiki.resp.UserLoginResp;
 import com.richard.wiki.resp.UserQueryResp;
 import com.richard.wiki.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,15 @@ public class UserController {
     public CommonResp resetPassword(@Valid @RequestBody UserResetPasswordReq req) {
         CommonResp resp = new CommonResp();
         userService.resetPassword(req);
+
+        return resp;
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public CommonResp login(@Valid @RequestBody UserLoginReq req) {
+        CommonResp<UserLoginResp> resp = new CommonResp<>();
+        UserLoginResp userLoginResp = userService.login(req);
+        resp.setContent(userLoginResp);
 
         return resp;
     }

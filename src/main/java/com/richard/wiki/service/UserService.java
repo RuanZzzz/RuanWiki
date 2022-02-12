@@ -1,5 +1,6 @@
 package com.richard.wiki.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.richard.wiki.domain.User;
@@ -18,6 +19,7 @@ import com.richard.wiki.util.SnowFlake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
@@ -25,6 +27,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserService {
@@ -36,6 +39,9 @@ public class UserService {
 
     @Autowired
     private SnowFlake snowFlake;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 用户列表返回
@@ -139,10 +145,17 @@ public class UserService {
             // 用户存在
             if (userDb.getPassword().equals(req.getPassword())) {
                 // 登录成功
+                // 创建token
+                Long token = snowFlake.nextId();
+                LOG.info("生成单点登录token：{}", token);
+                // 构建返回体
                 UserLoginResp userLoginResp = new UserLoginResp();
                 userLoginResp.setLoginName(userDb.getLoginName());
                 userLoginResp.setName(userDb.getName());
                 userLoginResp.setId(userDb.getId());
+                userLoginResp.setToken(String.valueOf(token));
+                // 同时把token存储进redis中
+                redisTemplate.opsForValue().set(token, JSONObject.toJSONString(userLoginResp), 3600 * 24, TimeUnit.SECONDS);
 
                 return userLoginResp;
             }else {

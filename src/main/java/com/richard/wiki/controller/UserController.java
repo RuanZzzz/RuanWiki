@@ -63,4 +63,12 @@ public class UserController {
         return resp;
     }
 
+    @RequestMapping(value = "/logout/{token}")
+    public CommonResp logout(@PathVariable String token) {
+        CommonResp resp = new CommonResp();
+        userService.logout(token);
+
+        return resp;
+    }
+
 }

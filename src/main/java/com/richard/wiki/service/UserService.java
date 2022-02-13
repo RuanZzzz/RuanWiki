@@ -166,4 +166,13 @@ public class UserService {
         }
     }
 
+    /**
+     * 登出逻辑
+     * @param token 前端出来的token
+     */
+    public void logout(String token) {
+        redisTemplate.delete(token);
+        LOG.info("从redis中删除token：{}",token);
+    }
+
 }

@@ -155,7 +155,7 @@ public class UserService {
                 userLoginResp.setId(userDb.getId());
                 userLoginResp.setToken(String.valueOf(token));
                 // 同时把token存储进redis中
-                redisTemplate.opsForValue().set(token, JSONObject.toJSONString(userLoginResp), 3600 * 24, TimeUnit.SECONDS);
+                redisTemplate.opsForValue().set(String.valueOf(token), JSONObject.toJSONString(userLoginResp), 3600 * 24, TimeUnit.SECONDS);
 
                 return userLoginResp;
             }else {

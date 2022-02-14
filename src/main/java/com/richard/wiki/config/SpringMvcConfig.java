@@ -1,5 +1,6 @@
 package com.richard.wiki.config;
 
+import com.richard.wiki.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,23 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 //    }
     @Value("${file.path}")
     private String dirPath;
+
+    @Resource
+    LoginInterceptor loginInterceptor;
+
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns(
+                        "/user/login",
+                        "/user/logout/**",
+                        "/category/all",
+                        "/ebook/list",
+                        "/doc/all/**",
+                        "/doc/find-content/**",
+                        "/wiki/**"
+                );
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

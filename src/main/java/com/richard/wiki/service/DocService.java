@@ -5,6 +5,7 @@ import com.richard.wiki.domain.Doc;
 import com.richard.wiki.domain.DocExample;
 import com.richard.wiki.mapper.ContentMapper;
 import com.richard.wiki.mapper.DocMapper;
+import com.richard.wiki.mapper.DocMapperCust;
 import com.richard.wiki.req.DocSaveReq;
 import com.richard.wiki.resp.DocQueryResp;
 import com.richard.wiki.util.SnowFlake;
@@ -23,6 +24,9 @@ public class DocService {
 
     @Autowired
     private ContentMapper contentMapper;
+
+    @Autowired
+    private DocMapperCust docMapperCust;
 
     @Autowired
     private SnowFlake snowFlake;
@@ -44,6 +48,8 @@ public class DocService {
             docQueryResp.setName(doc.getName());
             docQueryResp.setParent(doc.getParent());
             docQueryResp.setSort(doc.getSort());
+            docQueryResp.setViewCount(doc.getViewCount());
+            docQueryResp.setVoteCount(doc.getVoteCount());
             list.add(docQueryResp);
         }
 
@@ -52,10 +58,8 @@ public class DocService {
 
     public void save(DocSaveReq req) {
         if (ObjectUtils.isEmpty(req.getId())) {
-
-
             // 新增文档
-            Doc doc = Doc.builder().id(snowFlake.nextId()).ebookId(req.getEbookId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
+            Doc doc = Doc.builder().id(snowFlake.nextId()).ebookId(req.getEbookId()).name(req.getName()).sort(req.getSort()).viewCount(0).voteCount(0).parent(req.getParent()).build();
             docMapper.insert(doc);
 
             // 新增文档的内容
@@ -83,6 +87,8 @@ public class DocService {
 
     public String findContent(Long id) {
         Content content = contentMapper.selectByPrimaryKey(id);
+        // 文档阅读数+1
+        docMapperCust.increaseViewCount(id);
         if (ObjectUtils.isEmpty(content)) {
             return "";
         }else {

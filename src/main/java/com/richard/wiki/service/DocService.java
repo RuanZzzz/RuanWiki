@@ -3,16 +3,21 @@ package com.richard.wiki.service;
 import com.richard.wiki.domain.Content;
 import com.richard.wiki.domain.Doc;
 import com.richard.wiki.domain.DocExample;
+import com.richard.wiki.exception.BusinessException;
+import com.richard.wiki.exception.BusinessExceptionCode;
 import com.richard.wiki.mapper.ContentMapper;
 import com.richard.wiki.mapper.DocMapper;
 import com.richard.wiki.mapper.DocMapperCust;
 import com.richard.wiki.req.DocSaveReq;
 import com.richard.wiki.resp.DocQueryResp;
+import com.richard.wiki.util.RedisUtil;
+import com.richard.wiki.util.RequestContext;
 import com.richard.wiki.util.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +35,9 @@ public class DocService {
 
     @Autowired
     private SnowFlake snowFlake;
+
+    @Resource
+    private RedisUtil redisUtil;
 
     /**
      * 返回所有文档级别
@@ -97,7 +105,14 @@ public class DocService {
     }
 
     public void vote(Long id) {
-        docMapperCust.increaseVoteCount(id);
+        // docMapperCust.increaseVoteCount(id);
+        // 远程IP + doc.id 作为key，24小时内不能重复
+        String key = RequestContext.getRemoteAddr();
+        if (redisUtil.validateRepeat("DOC_VOTE_" + id + "_" + key, 3600 * 24)) {
+            docMapperCust.increaseVoteCount(id);
+        }else {
+            throw new BusinessException(BusinessExceptionCode.VOTE_REPEAT);
+        }
     }
 
 }

@@ -23,7 +23,7 @@ public class DocController {
      * @return
      */
     @RequestMapping(value = "/all/{ebookId}",method = RequestMethod.GET)
-    private CommonResp all(@PathVariable Long ebookId) {
+    public CommonResp all(@PathVariable Long ebookId) {
         CommonResp<List<DocQueryResp>> resp = new CommonResp<>();
         List<DocQueryResp> list = docService.all(ebookId);
         resp.setContent(list);
@@ -32,7 +32,7 @@ public class DocController {
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
-    private CommonResp save(@RequestBody DocSaveReq req) {
+    public CommonResp save(@RequestBody DocSaveReq req) {
         CommonResp resp = new CommonResp();
         docService.save(req);
         return resp;

@@ -25,4 +25,10 @@ public class EbookQueryResp {
 
     private Long category2Id;
 
+    private Integer docCount;
+
+    private Integer viewCount;
+
+    private Integer voteCount;
+
 }

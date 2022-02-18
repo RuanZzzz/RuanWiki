@@ -60,6 +60,9 @@ public class EbookService {
             ebookQueryResp.setImgName(ebook.getCover());
             ebookQueryResp.setName(ebook.getName());
             ebookQueryResp.setDescription(ebook.getDescription());
+            ebookQueryResp.setDocCount(ebook.getDocCount());
+            ebookQueryResp.setViewCount(ebook.getViewCount());
+            ebookQueryResp.setVoteCount(ebook.getVoteCount());
             list.add(ebookQueryResp);
         }
 

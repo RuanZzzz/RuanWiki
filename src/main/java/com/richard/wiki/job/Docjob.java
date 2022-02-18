@@ -20,9 +20,10 @@ public class Docjob {
     private DocService docService;
 
     /**
-     * 每30s更新电子书信息
+     * 每天凌晨2点更新：0 0 2 * * ?
+     * 每天晚上21:15更新：0 15 21 * * ?（用于测试）
      */
-    @Scheduled(cron = "5/30 * * * * ?")
+    @Scheduled(cron = "0 15 21 * * ?")
     public void cron()  {
         LOG.info("更新电子书下的文档数据开始");
         long start = System.currentTimeMillis();

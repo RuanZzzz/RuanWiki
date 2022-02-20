@@ -13,6 +13,7 @@ import com.richard.wiki.resp.DocQueryResp;
 import com.richard.wiki.util.RedisUtil;
 import com.richard.wiki.util.RequestContext;
 import com.richard.wiki.util.SnowFlake;
+import com.richard.wiki.websocket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -36,8 +37,12 @@ public class DocService {
     @Autowired
     private SnowFlake snowFlake;
 
-    @Resource
+    @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private WebSocketServer webSocketServer;
+
 
     /**
      * 返回所有文档级别
@@ -113,6 +118,10 @@ public class DocService {
         }else {
             throw new BusinessException(BusinessExceptionCode.VOTE_REPEAT);
         }
+
+        // 推送消息
+        Doc docDb = docMapper.selectByPrimaryKey(id);
+        webSocketServer.sendInfo("【" + docDb.getName() + "】被点赞");
     }
 
     public void updateEbookInfo() {

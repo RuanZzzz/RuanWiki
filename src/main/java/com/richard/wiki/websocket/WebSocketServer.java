@@ -25,29 +25,25 @@ public class WebSocketServer {
 
     /**
      * 连接成功
-     * @param session
-     * @param token
      */
     @OnOpen
     public void onOpen(Session session, @PathParam("token") String token) {
-        map.put(token,session);
+        map.put(token, session);
         this.token = token;
-        LOG.info("有新连接：token：{}，session id：{}，当前连接数：{}",token, session.getId(), map.size());
+        LOG.info("有新连接：token：{}，session id：{}，当前连接数：{}", token, session.getId(), map.size());
     }
 
     /**
-     * 关闭连接
-     * @param session
+     * 连接关闭
      */
+    @OnClose
     public void onClose(Session session) {
         map.remove(this.token);
         LOG.info("连接关闭，token：{}，session id：{}！当前连接数：{}", this.token, session.getId(), map.size());
     }
 
     /**
-     * 收到信息
-     * @param message
-     * @param session
+     * 收到消息
      */
     @OnMessage
     public void onMessage(String message, Session session) {
@@ -56,8 +52,6 @@ public class WebSocketServer {
 
     /**
      * 连接错误
-     * @param session
-     * @param error
      */
     @OnError
     public void onError(Session session, Throwable error) {
@@ -65,15 +59,14 @@ public class WebSocketServer {
     }
 
     /**
-     * 群发信息
-     * @param message
+     * 群发消息
      */
     public void sendInfo(String message) {
         for (String token : map.keySet()) {
             Session session = map.get(token);
             try {
                 session.getBasicRemote().sendText(message);
-            }catch (IOException e) {
+            } catch (IOException e) {
                 LOG.error("推送消息失败：{}，内容：{}", token, message);
             }
             LOG.info("推送消息：{}，内容：{}", token, message);

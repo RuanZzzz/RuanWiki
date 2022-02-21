@@ -15,6 +15,7 @@ import com.richard.wiki.util.RequestContext;
 import com.richard.wiki.util.SnowFlake;
 import com.richard.wiki.websocket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -41,8 +42,7 @@ public class DocService {
     private RedisUtil redisUtil;
 
     @Autowired
-    private WebSocketServer webSocketServer;
-
+    private WsService wsService;
 
     /**
      * 返回所有文档级别
@@ -121,7 +121,7 @@ public class DocService {
 
         // 推送消息
         Doc docDb = docMapper.selectByPrimaryKey(id);
-        webSocketServer.sendInfo("【" + docDb.getName() + "】被点赞");
+        wsService.sendInfo("【" + docDb.getName() + "】被点赞");
     }
 
     public void updateEbookInfo() {

@@ -13,14 +13,12 @@ import com.richard.wiki.resp.DocQueryResp;
 import com.richard.wiki.util.RedisUtil;
 import com.richard.wiki.util.RequestContext;
 import com.richard.wiki.util.SnowFlake;
-import com.richard.wiki.websocket.WebSocketServer;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +68,7 @@ public class DocService {
         return list;
     }
 
+    @Transactional
     public void save(DocSaveReq req) {
         if (ObjectUtils.isEmpty(req.getId())) {
             // 新增文档

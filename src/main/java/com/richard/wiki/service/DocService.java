@@ -14,6 +14,7 @@ import com.richard.wiki.util.RedisUtil;
 import com.richard.wiki.util.RequestContext;
 import com.richard.wiki.util.SnowFlake;
 import com.richard.wiki.websocket.WebSocketServer;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -121,7 +122,8 @@ public class DocService {
 
         // 推送消息
         Doc docDb = docMapper.selectByPrimaryKey(id);
-        wsService.sendInfo("【" + docDb.getName() + "】被点赞");
+        String logId = MDC.get("LOG_ID");
+        wsService.sendInfo("【" + docDb.getName() + "】被点赞",logId);
     }
 
     public void updateEbookInfo() {

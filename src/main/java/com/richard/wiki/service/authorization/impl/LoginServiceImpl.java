@@ -8,9 +8,12 @@ import com.richard.wiki.exception.BusinessExceptionCode;
 import com.richard.wiki.service.authorization.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
+@Service
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
@@ -54,6 +57,15 @@ public class LoginServiceImpl implements LoginService {
         }
 
         return userInfo;
+    }
+
+    @Override
+    public void deleteToken(String token) {
+        token = CommonConstant.USER_TOKEN + CommonConstant.DELIMITER + token;
+        boolean isDeleted = redisTemplate.delete(token);
+        if (!isDeleted) {
+            throw new BusinessException(BusinessExceptionCode.ERROR_LOGOUT);
+        }
     }
 
 

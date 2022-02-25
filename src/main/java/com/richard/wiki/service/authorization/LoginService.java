@@ -25,4 +25,10 @@ public interface LoginService {
      */
     public UserInfo getTokenInfo(String token);
 
+    /**
+     * 退出登录，并删除token
+     * @param token         传入的token
+     */
+    public void deleteToken(String token);
+
 }

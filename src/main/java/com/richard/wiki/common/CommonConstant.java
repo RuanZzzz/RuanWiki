@@ -11,5 +11,7 @@ public class CommonConstant {
      */
     public static final String LOGIN_USER_INFO = "login_user_info";
     public static final String USER_TOKEN = "token";
+    public static final String DELIMITER = ":";
+    public static final Integer DEFAULT_REDIS_EXPIRE_TIME = 1;
 
 }

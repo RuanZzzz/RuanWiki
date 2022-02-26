@@ -1,11 +1,19 @@
 package com.richard.wiki.service.authorization;
 
 import com.richard.wiki.domain.UserInfo;
+import com.richard.wiki.req.UserLoginReq;
 
 public interface LoginService {
 
     /**
-     * 生成token
+     * 用户登录
+     * @param req           传入的登录账号密码
+     * @return              登录成功返回用户信息
+     */
+    public UserInfo login(UserLoginReq req);
+
+    /**
+     * 生成token（废弃）
      * @param userInfo      传入的用户对象
      * @return              返回token
      */

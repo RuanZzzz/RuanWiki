@@ -28,7 +28,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     private LoginService loginService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // 打印请求信息
+        LOG.info("------------- LoginInterceptor 开始 -------------");
+        long startTime = System.currentTimeMillis();
+        request.setAttribute("requestStartTime", startTime);
+
         // OPTIONS请求不做校验,
         if(request.getMethod().toUpperCase().equals("OPTIONS")){
             return true;
@@ -57,6 +62,11 @@ public class LoginInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         long startTime = (Long) request.getAttribute("requestStartTime");
         LOG.info("------------- LoginInterceptor 结束 耗时：{} ms -------------", System.currentTimeMillis() - startTime);
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+//        LOG.info("LogInterceptor 结束");
     }
 
 }

@@ -1,5 +1,6 @@
 package com.richard.wiki.controller;
 
+import com.richard.wiki.domain.UserInfo;
 import com.richard.wiki.req.UserLoginReq;
 import com.richard.wiki.req.UserQueryReq;
 import com.richard.wiki.req.UserResetPasswordReq;
@@ -9,6 +10,7 @@ import com.richard.wiki.resp.PageResp;
 import com.richard.wiki.resp.UserLoginResp;
 import com.richard.wiki.resp.UserQueryResp;
 import com.richard.wiki.service.UserService;
+import com.richard.wiki.service.authorization.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LoginService loginService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public CommonResp list(@Valid UserQueryReq req) {
@@ -56,9 +61,9 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public CommonResp login(@Valid @RequestBody UserLoginReq req) {
-        CommonResp<UserLoginResp> resp = new CommonResp<>();
-        UserLoginResp userLoginResp = userService.login(req);
-        resp.setContent(userLoginResp);
+        CommonResp resp = new CommonResp<>();
+        // 登录成功返回用户信息和token
+        resp.setContent(loginService.login(req));
 
         return resp;
     }
@@ -66,7 +71,7 @@ public class UserController {
     @RequestMapping(value = "/logout/{token}")
     public CommonResp logout(@PathVariable String token) {
         CommonResp resp = new CommonResp();
-        userService.logout(token);
+        loginService.deleteToken(token);
 
         return resp;
     }

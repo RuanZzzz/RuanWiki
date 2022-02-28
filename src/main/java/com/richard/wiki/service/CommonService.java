@@ -1,7 +1,6 @@
 package com.richard.wiki.service;
 
-import com.richard.wiki.domain.EditorImgDO;
-import com.richard.wiki.resp.CommonResp;
+import com.richard.wiki.domain.dos.home.EditorImgDO;
 import com.richard.wiki.resp.EditorImgUploadResp;
 import com.richard.wiki.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;

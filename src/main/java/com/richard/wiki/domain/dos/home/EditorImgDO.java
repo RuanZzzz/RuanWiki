@@ -1,4 +1,4 @@
-package com.richard.wiki.domain;
+package com.richard.wiki.domain.dos.home;
 
 import lombok.Data;
 

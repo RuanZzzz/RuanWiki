@@ -1,6 +1,6 @@
 package com.richard.wiki.resp;
 
-import com.richard.wiki.domain.EditorImgDO;
+import com.richard.wiki.domain.dos.home.EditorImgDO;
 import lombok.Data;
 
 import java.util.List;

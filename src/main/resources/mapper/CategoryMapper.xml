@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     id, parent, `name`, sort
   </sql>
-  <select id="selectByExample" parameterType="com.richard.wiki.domain.CategoryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.richard.wiki.examples.CategoryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,7 +92,7 @@
     delete from category
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.richard.wiki.domain.CategoryExample">
+  <delete id="deleteByExample" parameterType="com.richard.wiki.examples.CategoryExample">
     delete from category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.richard.wiki.domain.CategoryExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.richard.wiki.examples.CategoryExample" resultType="java.lang.Long">
     select count(*) from category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

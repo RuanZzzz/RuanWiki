@@ -1,9 +1,8 @@
 package com.richard.wiki.service.authorization.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.richard.wiki.common.CommonConstant;
 import com.richard.wiki.domain.User;
-import com.richard.wiki.domain.UserExample;
+import com.richard.wiki.examples.UserExample;
 import com.richard.wiki.domain.UserInfo;
 import com.richard.wiki.exception.BusinessException;
 import com.richard.wiki.exception.BusinessExceptionCode;
@@ -13,7 +12,6 @@ import com.richard.wiki.service.authorization.LoginService;
 import com.richard.wiki.util.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.richard.wiki.domain.User;
-import com.richard.wiki.domain.UserExample;
+import com.richard.wiki.examples.UserExample;
 import com.richard.wiki.exception.BusinessException;
 import com.richard.wiki.exception.BusinessExceptionCode;
 import com.richard.wiki.mapper.UserMapper;

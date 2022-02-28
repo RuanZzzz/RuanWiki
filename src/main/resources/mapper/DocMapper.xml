@@ -71,7 +71,7 @@
   <sql id="Base_Column_List">
     id, ebook_id, parent, `name`, sort, view_count, vote_count
   </sql>
-  <select id="selectByExample" parameterType="com.richard.wiki.domain.DocExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.richard.wiki.examples.DocExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -95,7 +95,7 @@
     delete from doc
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.richard.wiki.domain.DocExample">
+  <delete id="deleteByExample" parameterType="com.richard.wiki.examples.DocExample">
     delete from doc
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -158,7 +158,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.richard.wiki.domain.DocExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.richard.wiki.examples.DocExample" resultType="java.lang.Long">
     select count(*) from doc
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

@@ -1,7 +1,7 @@
 package com.richard.wiki.mapper;
 
 import com.richard.wiki.domain.Doc;
-import com.richard.wiki.domain.DocExample;
+import com.richard.wiki.examples.DocExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

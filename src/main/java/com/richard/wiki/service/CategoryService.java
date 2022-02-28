@@ -3,7 +3,7 @@ package com.richard.wiki.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.richard.wiki.domain.Category;
-import com.richard.wiki.domain.CategoryExample;
+import com.richard.wiki.examples.CategoryExample;
 import com.richard.wiki.mapper.CategoryMapper;
 import com.richard.wiki.req.CategoryQueryReq;
 import com.richard.wiki.req.CategorySaveReq;

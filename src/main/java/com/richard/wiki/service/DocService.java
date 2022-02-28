@@ -2,7 +2,7 @@ package com.richard.wiki.service;
 
 import com.richard.wiki.domain.Content;
 import com.richard.wiki.domain.Doc;
-import com.richard.wiki.domain.DocExample;
+import com.richard.wiki.examples.DocExample;
 import com.richard.wiki.exception.BusinessException;
 import com.richard.wiki.exception.BusinessExceptionCode;
 import com.richard.wiki.mapper.ContentMapper;

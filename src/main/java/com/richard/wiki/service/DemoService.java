@@ -1,7 +1,7 @@
 package com.richard.wiki.service;
 
 import com.richard.wiki.domain.Demo;
-import com.richard.wiki.domain.DemoExample;
+import com.richard.wiki.examples.DemoExample;
 import com.richard.wiki.mapper.DemoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

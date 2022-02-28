@@ -1,4 +1,4 @@
-package com.richard.wiki.domain;
+package com.richard.wiki.examples;
 
 import java.util.ArrayList;
 import java.util.List;

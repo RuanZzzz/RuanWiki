@@ -1,7 +1,7 @@
 package com.richard.wiki.mapper;
 
 import com.richard.wiki.domain.Ebook;
-import com.richard.wiki.domain.EbookExample;
+import com.richard.wiki.examples.EbookExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

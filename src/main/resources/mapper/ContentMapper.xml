@@ -71,7 +71,7 @@
   <sql id="Blob_Column_List">
     content
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.richard.wiki.domain.ContentExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.richard.wiki.examples.ContentExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -87,7 +87,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.richard.wiki.domain.ContentExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.richard.wiki.examples.ContentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -113,7 +113,7 @@
     delete from content
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.richard.wiki.domain.ContentExample">
+  <delete id="deleteByExample" parameterType="com.richard.wiki.examples.ContentExample">
     delete from content
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -142,7 +142,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.richard.wiki.domain.ContentExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.richard.wiki.examples.ContentExample" resultType="java.lang.Long">
     select count(*) from content
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

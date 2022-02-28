@@ -3,7 +3,7 @@ package com.richard.wiki.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.richard.wiki.domain.Ebook;
-import com.richard.wiki.domain.EbookExample;
+import com.richard.wiki.examples.EbookExample;
 import com.richard.wiki.mapper.EbookMapper;
 import com.richard.wiki.req.EbookQueryReq;
 import com.richard.wiki.req.EbookSaveReq;

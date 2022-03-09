@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.richard.wiki.mapper.RecordMapper">
+  <resultMap id="BaseResultMap" type="com.richard.wiki.domain.Record">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
+    <result column="goods_price" jdbcType="REAL" property="goodsPrice" />
+    <result column="goods_total_price" jdbcType="REAL" property="goodsTotalPrice" />
+    <result column="record_time" jdbcType="VARCHAR" property="recordTime" />
+    <result column="created_at" jdbcType="VARCHAR" property="createdAt" />
+    <result column="opera_type" jdbcType="VARCHAR" property="operaType" />
+    <result column="record_name" jdbcType="VARCHAR" property="recordName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, goods_id, goods_count, goods_price, goods_total_price, record_time, created_at, 
+    opera_type, record_name, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.richard.wiki.examples.RecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.richard.wiki.examples.RecordExample">
+    delete from record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.richard.wiki.domain.Record">
+    insert into record (id, goods_id, goods_count, 
+      goods_price, goods_total_price, record_time, 
+      created_at, opera_type, record_name, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsCount,jdbcType=INTEGER}, 
+      #{goodsPrice,jdbcType=REAL}, #{goodsTotalPrice,jdbcType=REAL}, #{recordTime,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=VARCHAR}, #{operaType,jdbcType=VARCHAR}, #{recordName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.richard.wiki.domain.Record">
+    insert into record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsCount != null">
+        goods_count,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsTotalPrice != null">
+        goods_total_price,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="operaType != null">
+        opera_type,
+      </if>
+      <if test="recordName != null">
+        record_name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCount != null">
+        #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=REAL},
+      </if>
+      <if test="goodsTotalPrice != null">
+        #{goodsTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=VARCHAR},
+      </if>
+      <if test="operaType != null">
+        #{operaType,jdbcType=VARCHAR},
+      </if>
+      <if test="recordName != null">
+        #{recordName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.richard.wiki.examples.RecordExample" resultType="java.lang.Long">
+    select count(*) from record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update record
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsCount != null">
+        goods_count = #{record.goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsPrice != null">
+        goods_price = #{record.goodsPrice,jdbcType=REAL},
+      </if>
+      <if test="record.goodsTotalPrice != null">
+        goods_total_price = #{record.goodsTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="record.recordTime != null">
+        record_time = #{record.recordTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operaType != null">
+        opera_type = #{record.operaType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordName != null">
+        record_name = #{record.recordName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update record
+    set id = #{record.id,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      goods_count = #{record.goodsCount,jdbcType=INTEGER},
+      goods_price = #{record.goodsPrice,jdbcType=REAL},
+      goods_total_price = #{record.goodsTotalPrice,jdbcType=REAL},
+      record_time = #{record.recordTime,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=VARCHAR},
+      opera_type = #{record.operaType,jdbcType=VARCHAR},
+      record_name = #{record.recordName,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.richard.wiki.domain.Record">
+    update record
+    <set>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCount != null">
+        goods_count = #{goodsCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=REAL},
+      </if>
+      <if test="goodsTotalPrice != null">
+        goods_total_price = #{goodsTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=VARCHAR},
+      </if>
+      <if test="operaType != null">
+        opera_type = #{operaType,jdbcType=VARCHAR},
+      </if>
+      <if test="recordName != null">
+        record_name = #{recordName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.richard.wiki.domain.Record">
+    update record
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      goods_count = #{goodsCount,jdbcType=INTEGER},
+      goods_price = #{goodsPrice,jdbcType=REAL},
+      goods_total_price = #{goodsTotalPrice,jdbcType=REAL},
+      record_time = #{recordTime,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=VARCHAR},
+      opera_type = #{operaType,jdbcType=VARCHAR},
+      record_name = #{recordName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

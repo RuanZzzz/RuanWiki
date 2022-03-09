@@ -88,3 +88,15 @@ create table `user` (
     primary key (`id`),
     unique key `login_name_unique` (`login_name`)
 ) engine=innodb default charset=utf8mb4 comment='用户';
+
+-- 操作记录表
+drop table if exists `record`;
+create table `record` (
+    `record_id` varchar(200) not null comment '用户id',
+    `type` int not null comment '类型：1-新增、2-删除、3-更新',
+    `desc` varchar(200) not null comment '动作描述',
+    `record_time` varchar(200) not null comment '记录时间',
+    `opera_url` varchar(200) not null comment '操作路由',
+    `method_name` varchar(50) not null comment '请求方法',
+    `service_name` varchar(50) not null
+) engine=innodb default charset=utf8mb4 comment='操作记录';

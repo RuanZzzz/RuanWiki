@@ -74,16 +74,22 @@ public class CategoryService {
         return list;
     }
 
+    /**
+     * 新增
+     * @param req
+     */
     public void save(CategorySaveReq req) {
-        if (ObjectUtils.isEmpty(req.getId())) {
-            // 新增
-            Category category = Category.builder().id(snowFlake.nextId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
-            categoryMapper.insert(category);
-        }else {
-            // 编辑
-            Category category = Category.builder().id(req.getId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
-            categoryMapper.updateByPrimaryKeySelective(category);
-        }
+        Category category = Category.builder().id(snowFlake.nextId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
+        categoryMapper.insert(category);
+    }
+
+    /**
+     * 编辑
+     * @param req
+     */
+    public void update(CategorySaveReq req) {
+        Category category = Category.builder().id(req.getId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
+        categoryMapper.updateByPrimaryKeySelective(category);
     }
 
 }

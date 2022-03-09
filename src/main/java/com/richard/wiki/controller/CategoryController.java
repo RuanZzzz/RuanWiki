@@ -39,12 +39,32 @@ public class CategoryController {
         return resp;
     }
 
+    /**
+     * 新增方法
+     * @param req
+     * @return
+     */
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public CommonResp save(@RequestBody CategorySaveReq req) {
         CommonResp resp = new CommonResp();
         categoryService.save(req);
+        resp.setMessage("新增成功");
+
         return resp;
     }
 
+    /**
+     * 更新方法
+     * @param req
+     * @return
+     */
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public CommonResp update(@RequestBody CategorySaveReq req) {
+        CommonResp resp = new CommonResp();
+        categoryService.update(req);
+        resp.setMessage("更新成功");
+
+        return resp;
+    }
 
 }

@@ -1,64 +1,42 @@
 package com.richard.wiki.domain;
 
 public class Record {
-    private Integer id;
+    private String recordId;
 
-    private Integer goodsId;
+    private Integer type;
 
-    private Integer goodsCount;
-
-    private Float goodsPrice;
-
-    private Float goodsTotalPrice;
+    private String desc;
 
     private String recordTime;
 
-    private String createdAt;
+    private String operaUrl;
 
-    private String operaType;
+    private String methodName;
 
-    private String recordName;
+    private String serviceName;
 
-    private String remark;
-
-    public Integer getId() {
-        return id;
+    public String getRecordId() {
+        return recordId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public Integer getType() {
+        return type;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
-    public Integer getGoodsCount() {
-        return goodsCount;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setGoodsCount(Integer goodsCount) {
-        this.goodsCount = goodsCount;
-    }
-
-    public Float getGoodsPrice() {
-        return goodsPrice;
-    }
-
-    public void setGoodsPrice(Float goodsPrice) {
-        this.goodsPrice = goodsPrice;
-    }
-
-    public Float getGoodsTotalPrice() {
-        return goodsTotalPrice;
-    }
-
-    public void setGoodsTotalPrice(Float goodsTotalPrice) {
-        this.goodsTotalPrice = goodsTotalPrice;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getRecordTime() {
@@ -69,36 +47,28 @@ public class Record {
         this.recordTime = recordTime;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getOperaUrl() {
+        return operaUrl;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setOperaUrl(String operaUrl) {
+        this.operaUrl = operaUrl;
     }
 
-    public String getOperaType() {
-        return operaType;
+    public String getMethodName() {
+        return methodName;
     }
 
-    public void setOperaType(String operaType) {
-        this.operaType = operaType;
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
     }
 
-    public String getRecordName() {
-        return recordName;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setRecordName(String recordName) {
-        this.recordName = recordName;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     @Override
@@ -107,16 +77,13 @@ public class Record {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", goodsId=").append(goodsId);
-        sb.append(", goodsCount=").append(goodsCount);
-        sb.append(", goodsPrice=").append(goodsPrice);
-        sb.append(", goodsTotalPrice=").append(goodsTotalPrice);
+        sb.append(", recordId=").append(recordId);
+        sb.append(", type=").append(type);
+        sb.append(", desc=").append(desc);
         sb.append(", recordTime=").append(recordTime);
-        sb.append(", createdAt=").append(createdAt);
-        sb.append(", operaType=").append(operaType);
-        sb.append(", recordName=").append(recordName);
-        sb.append(", remark=").append(remark);
+        sb.append(", operaUrl=").append(operaUrl);
+        sb.append(", methodName=").append(methodName);
+        sb.append(", serviceName=").append(serviceName);
         sb.append("]");
         return sb.toString();
     }

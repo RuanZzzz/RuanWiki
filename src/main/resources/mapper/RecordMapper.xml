@@ -2,16 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.richard.wiki.mapper.RecordMapper">
   <resultMap id="BaseResultMap" type="com.richard.wiki.domain.Record">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
-    <result column="goods_count" jdbcType="INTEGER" property="goodsCount" />
-    <result column="goods_price" jdbcType="REAL" property="goodsPrice" />
-    <result column="goods_total_price" jdbcType="REAL" property="goodsTotalPrice" />
+    <result column="record_id" jdbcType="VARCHAR" property="recordId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
     <result column="record_time" jdbcType="VARCHAR" property="recordTime" />
-    <result column="created_at" jdbcType="VARCHAR" property="createdAt" />
-    <result column="opera_type" jdbcType="VARCHAR" property="operaType" />
-    <result column="record_name" jdbcType="VARCHAR" property="recordName" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="opera_url" jdbcType="VARCHAR" property="operaUrl" />
+    <result column="method_name" jdbcType="VARCHAR" property="methodName" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,8 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, goods_id, goods_count, goods_price, goods_total_price, record_time, created_at, 
-    opera_type, record_name, remark
+    record_id, `type`, `desc`, record_time, opera_url, method_name, service_name
   </sql>
   <select id="selectByExample" parameterType="com.richard.wiki.examples.RecordExample" resultMap="BaseResultMap">
     select
@@ -89,16 +85,6 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from record
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from record
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
   <delete id="deleteByExample" parameterType="com.richard.wiki.examples.RecordExample">
     delete from record
     <if test="_parameter != null">
@@ -106,79 +92,59 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.richard.wiki.domain.Record">
-    insert into record (id, goods_id, goods_count, 
-      goods_price, goods_total_price, record_time, 
-      created_at, opera_type, record_name, 
-      remark)
-    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsCount,jdbcType=INTEGER}, 
-      #{goodsPrice,jdbcType=REAL}, #{goodsTotalPrice,jdbcType=REAL}, #{recordTime,jdbcType=VARCHAR}, 
-      #{createdAt,jdbcType=VARCHAR}, #{operaType,jdbcType=VARCHAR}, #{recordName,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+    insert into record (record_id, `type`, `desc`, 
+      record_time, opera_url, method_name, 
+      service_name)
+    values (#{recordId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{desc,jdbcType=VARCHAR}, 
+      #{recordTime,jdbcType=VARCHAR}, #{operaUrl,jdbcType=VARCHAR}, #{methodName,jdbcType=VARCHAR}, 
+      #{serviceName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.richard.wiki.domain.Record">
     insert into record
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="recordId != null">
+        record_id,
       </if>
-      <if test="goodsId != null">
-        goods_id,
+      <if test="type != null">
+        `type`,
       </if>
-      <if test="goodsCount != null">
-        goods_count,
-      </if>
-      <if test="goodsPrice != null">
-        goods_price,
-      </if>
-      <if test="goodsTotalPrice != null">
-        goods_total_price,
+      <if test="desc != null">
+        `desc`,
       </if>
       <if test="recordTime != null">
         record_time,
       </if>
-      <if test="createdAt != null">
-        created_at,
+      <if test="operaUrl != null">
+        opera_url,
       </if>
-      <if test="operaType != null">
-        opera_type,
+      <if test="methodName != null">
+        method_name,
       </if>
-      <if test="recordName != null">
-        record_name,
-      </if>
-      <if test="remark != null">
-        remark,
+      <if test="serviceName != null">
+        service_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="recordId != null">
+        #{recordId,jdbcType=VARCHAR},
       </if>
-      <if test="goodsId != null">
-        #{goodsId,jdbcType=INTEGER},
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
       </if>
-      <if test="goodsCount != null">
-        #{goodsCount,jdbcType=INTEGER},
-      </if>
-      <if test="goodsPrice != null">
-        #{goodsPrice,jdbcType=REAL},
-      </if>
-      <if test="goodsTotalPrice != null">
-        #{goodsTotalPrice,jdbcType=REAL},
+      <if test="desc != null">
+        #{desc,jdbcType=VARCHAR},
       </if>
       <if test="recordTime != null">
         #{recordTime,jdbcType=VARCHAR},
       </if>
-      <if test="createdAt != null">
-        #{createdAt,jdbcType=VARCHAR},
+      <if test="operaUrl != null">
+        #{operaUrl,jdbcType=VARCHAR},
       </if>
-      <if test="operaType != null">
-        #{operaType,jdbcType=VARCHAR},
+      <if test="methodName != null">
+        #{methodName,jdbcType=VARCHAR},
       </if>
-      <if test="recordName != null">
-        #{recordName,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -191,35 +157,26 @@
   <update id="updateByExampleSelective" parameterType="map">
     update record
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.recordId != null">
+        record_id = #{record.recordId,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodsId != null">
-        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=INTEGER},
       </if>
-      <if test="record.goodsCount != null">
-        goods_count = #{record.goodsCount,jdbcType=INTEGER},
-      </if>
-      <if test="record.goodsPrice != null">
-        goods_price = #{record.goodsPrice,jdbcType=REAL},
-      </if>
-      <if test="record.goodsTotalPrice != null">
-        goods_total_price = #{record.goodsTotalPrice,jdbcType=REAL},
+      <if test="record.desc != null">
+        `desc` = #{record.desc,jdbcType=VARCHAR},
       </if>
       <if test="record.recordTime != null">
         record_time = #{record.recordTime,jdbcType=VARCHAR},
       </if>
-      <if test="record.createdAt != null">
-        created_at = #{record.createdAt,jdbcType=VARCHAR},
+      <if test="record.operaUrl != null">
+        opera_url = #{record.operaUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.operaType != null">
-        opera_type = #{record.operaType,jdbcType=VARCHAR},
+      <if test="record.methodName != null">
+        method_name = #{record.methodName,jdbcType=VARCHAR},
       </if>
-      <if test="record.recordName != null">
-        record_name = #{record.recordName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
+      <if test="record.serviceName != null">
+        service_name = #{record.serviceName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -228,64 +185,15 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update record
-    set id = #{record.id,jdbcType=INTEGER},
-      goods_id = #{record.goodsId,jdbcType=INTEGER},
-      goods_count = #{record.goodsCount,jdbcType=INTEGER},
-      goods_price = #{record.goodsPrice,jdbcType=REAL},
-      goods_total_price = #{record.goodsTotalPrice,jdbcType=REAL},
+    set record_id = #{record.recordId,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=INTEGER},
+      `desc` = #{record.desc,jdbcType=VARCHAR},
       record_time = #{record.recordTime,jdbcType=VARCHAR},
-      created_at = #{record.createdAt,jdbcType=VARCHAR},
-      opera_type = #{record.operaType,jdbcType=VARCHAR},
-      record_name = #{record.recordName,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=VARCHAR}
+      opera_url = #{record.operaUrl,jdbcType=VARCHAR},
+      method_name = #{record.methodName,jdbcType=VARCHAR},
+      service_name = #{record.serviceName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.richard.wiki.domain.Record">
-    update record
-    <set>
-      <if test="goodsId != null">
-        goods_id = #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="goodsCount != null">
-        goods_count = #{goodsCount,jdbcType=INTEGER},
-      </if>
-      <if test="goodsPrice != null">
-        goods_price = #{goodsPrice,jdbcType=REAL},
-      </if>
-      <if test="goodsTotalPrice != null">
-        goods_total_price = #{goodsTotalPrice,jdbcType=REAL},
-      </if>
-      <if test="recordTime != null">
-        record_time = #{recordTime,jdbcType=VARCHAR},
-      </if>
-      <if test="createdAt != null">
-        created_at = #{createdAt,jdbcType=VARCHAR},
-      </if>
-      <if test="operaType != null">
-        opera_type = #{operaType,jdbcType=VARCHAR},
-      </if>
-      <if test="recordName != null">
-        record_name = #{recordName,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.richard.wiki.domain.Record">
-    update record
-    set goods_id = #{goodsId,jdbcType=INTEGER},
-      goods_count = #{goodsCount,jdbcType=INTEGER},
-      goods_price = #{goodsPrice,jdbcType=REAL},
-      goods_total_price = #{goodsTotalPrice,jdbcType=REAL},
-      record_time = #{recordTime,jdbcType=VARCHAR},
-      created_at = #{createdAt,jdbcType=VARCHAR},
-      opera_type = #{operaType,jdbcType=VARCHAR},
-      record_name = #{recordName,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -2,6 +2,7 @@ package com.richard.wiki.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.richard.wiki.annotation.OperationRecord;
 import com.richard.wiki.domain.Category;
 import com.richard.wiki.examples.CategoryExample;
 import com.richard.wiki.mapper.CategoryMapper;
@@ -78,6 +79,7 @@ public class CategoryService {
      * 新增
      * @param req
      */
+    @OperationRecord(desc = "分类新增",type = "1")
     public void save(CategorySaveReq req) {
         Category category = Category.builder().id(snowFlake.nextId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
         categoryMapper.insert(category);
@@ -87,6 +89,7 @@ public class CategoryService {
      * 编辑
      * @param req
      */
+    @OperationRecord(desc = "分类更新",type = "3")
     public void update(CategorySaveReq req) {
         Category category = Category.builder().id(req.getId()).name(req.getName()).sort(req.getSort()).parent(req.getParent()).build();
         categoryMapper.updateByPrimaryKeySelective(category);

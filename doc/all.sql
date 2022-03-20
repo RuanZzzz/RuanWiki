@@ -10,6 +10,8 @@ create table `ebook` (
     `doc_count` int comment '文档数',
     `view_count` int comment '阅读数',
     `vote_count` int comment '点赞数',
+    `record_id` varchar(50) comment '作者id',
+    `record_name` varchar(200) comment '作者名称',
     primary key (`id`)
 )engine=innodb default charset=utf8mb4 comment='电子书';
 

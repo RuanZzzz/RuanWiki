@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Ebook {
     private Long id;
 
@@ -25,6 +25,10 @@ public class Ebook {
     private Integer viewCount;
 
     private Integer voteCount;
+
+    private String recordId;
+
+    private String recordName;
 
     public Long getId() {
         return id;
@@ -98,6 +102,22 @@ public class Ebook {
         this.voteCount = voteCount;
     }
 
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
+    }
+
+    public String getRecordName() {
+        return recordName;
+    }
+
+    public void setRecordName(String recordName) {
+        this.recordName = recordName;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -113,6 +133,8 @@ public class Ebook {
         sb.append(", docCount=").append(docCount);
         sb.append(", viewCount=").append(viewCount);
         sb.append(", voteCount=").append(voteCount);
+        sb.append(", recordId=").append(recordId);
+        sb.append(", recordName=").append(recordName);
         sb.append("]");
         return sb.toString();
     }

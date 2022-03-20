@@ -11,6 +11,8 @@
     <result column="doc_count" jdbcType="INTEGER" property="docCount" />
     <result column="view_count" jdbcType="INTEGER" property="viewCount" />
     <result column="vote_count" jdbcType="INTEGER" property="voteCount" />
+    <result column="record_id" jdbcType="VARCHAR" property="recordId" />
+    <result column="record_name" jdbcType="VARCHAR" property="recordName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, `name`, category_id1, category_id2, description, cover, doc_count, view_count, 
-    vote_count
+    vote_count, record_id, record_name
   </sql>
   <select id="selectByExample" parameterType="com.richard.wiki.examples.EbookExample" resultMap="BaseResultMap">
     select
@@ -107,12 +109,12 @@
   <insert id="insert" parameterType="com.richard.wiki.domain.Ebook">
     insert into ebook (id, `name`, category_id1, 
       category_id2, description, cover, 
-      doc_count, view_count, vote_count
-      )
+      doc_count, view_count, vote_count, 
+      record_id, record_name)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{categoryId1,jdbcType=BIGINT}, 
       #{categoryId2,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, 
-      #{docCount,jdbcType=INTEGER}, #{viewCount,jdbcType=INTEGER}, #{voteCount,jdbcType=INTEGER}
-      )
+      #{docCount,jdbcType=INTEGER}, #{viewCount,jdbcType=INTEGER}, #{voteCount,jdbcType=INTEGER}, 
+      #{recordId,jdbcType=VARCHAR}, #{recordName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.richard.wiki.domain.Ebook">
     insert into ebook
@@ -144,6 +146,12 @@
       <if test="voteCount != null">
         vote_count,
       </if>
+      <if test="recordId != null">
+        record_id,
+      </if>
+      <if test="recordName != null">
+        record_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -172,6 +180,12 @@
       </if>
       <if test="voteCount != null">
         #{voteCount,jdbcType=INTEGER},
+      </if>
+      <if test="recordId != null">
+        #{recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordName != null">
+        #{recordName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -211,6 +225,12 @@
       <if test="record.voteCount != null">
         vote_count = #{record.voteCount,jdbcType=INTEGER},
       </if>
+      <if test="record.recordId != null">
+        record_id = #{record.recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordName != null">
+        record_name = #{record.recordName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -226,7 +246,9 @@
       cover = #{record.cover,jdbcType=VARCHAR},
       doc_count = #{record.docCount,jdbcType=INTEGER},
       view_count = #{record.viewCount,jdbcType=INTEGER},
-      vote_count = #{record.voteCount,jdbcType=INTEGER}
+      vote_count = #{record.voteCount,jdbcType=INTEGER},
+      record_id = #{record.recordId,jdbcType=VARCHAR},
+      record_name = #{record.recordName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -258,6 +280,12 @@
       <if test="voteCount != null">
         vote_count = #{voteCount,jdbcType=INTEGER},
       </if>
+      <if test="recordId != null">
+        record_id = #{recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordName != null">
+        record_name = #{recordName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -270,7 +298,9 @@
       cover = #{cover,jdbcType=VARCHAR},
       doc_count = #{docCount,jdbcType=INTEGER},
       view_count = #{viewCount,jdbcType=INTEGER},
-      vote_count = #{voteCount,jdbcType=INTEGER}
+      vote_count = #{voteCount,jdbcType=INTEGER},
+      record_id = #{recordId,jdbcType=VARCHAR},
+      record_name = #{recordName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

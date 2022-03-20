@@ -673,6 +673,146 @@ public class EbookExample {
             addCriterion("vote_count not between", value1, value2, "voteCount");
             return (Criteria) this;
         }
+
+        public Criteria andRecordIdIsNull() {
+            addCriterion("record_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdIsNotNull() {
+            addCriterion("record_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdEqualTo(String value) {
+            addCriterion("record_id =", value, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdNotEqualTo(String value) {
+            addCriterion("record_id <>", value, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdGreaterThan(String value) {
+            addCriterion("record_id >", value, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdGreaterThanOrEqualTo(String value) {
+            addCriterion("record_id >=", value, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdLessThan(String value) {
+            addCriterion("record_id <", value, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdLessThanOrEqualTo(String value) {
+            addCriterion("record_id <=", value, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdLike(String value) {
+            addCriterion("record_id like", value, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdNotLike(String value) {
+            addCriterion("record_id not like", value, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdIn(List<String> values) {
+            addCriterion("record_id in", values, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdNotIn(List<String> values) {
+            addCriterion("record_id not in", values, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdBetween(String value1, String value2) {
+            addCriterion("record_id between", value1, value2, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordIdNotBetween(String value1, String value2) {
+            addCriterion("record_id not between", value1, value2, "recordId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameIsNull() {
+            addCriterion("record_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameIsNotNull() {
+            addCriterion("record_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameEqualTo(String value) {
+            addCriterion("record_name =", value, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameNotEqualTo(String value) {
+            addCriterion("record_name <>", value, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameGreaterThan(String value) {
+            addCriterion("record_name >", value, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameGreaterThanOrEqualTo(String value) {
+            addCriterion("record_name >=", value, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameLessThan(String value) {
+            addCriterion("record_name <", value, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameLessThanOrEqualTo(String value) {
+            addCriterion("record_name <=", value, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameLike(String value) {
+            addCriterion("record_name like", value, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameNotLike(String value) {
+            addCriterion("record_name not like", value, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameIn(List<String> values) {
+            addCriterion("record_name in", values, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameNotIn(List<String> values) {
+            addCriterion("record_name not in", values, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameBetween(String value1, String value2) {
+            addCriterion("record_name between", value1, value2, "recordName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRecordNameNotBetween(String value1, String value2) {
+            addCriterion("record_name not between", value1, value2, "recordName");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

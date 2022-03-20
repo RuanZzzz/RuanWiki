@@ -17,7 +17,7 @@ public class WebSocketServer {
     private static final Logger LOG = LoggerFactory.getLogger(WebSocketServer.class);
 
     /**
-     * 每个客户端一个token
+     * 每个客户端一个token（使用用户的token）
      */
     private String token = "";
 
@@ -62,6 +62,43 @@ public class WebSocketServer {
      * 群发消息
      */
     public void sendInfo(String message) {
+        for (String token : map.keySet()) {
+            Session session = map.get(token);
+            try {
+                session.getBasicRemote().sendText(message);
+            } catch (IOException e) {
+                LOG.error("推送消息失败：{}，内容：{}", token, message);
+            }
+            LOG.info("推送消息：{}，内容：{}", token, message);
+        }
+    }
+
+    /**
+     * 发送消息给指定用户
+     * @param token     用户连接的token
+     * @param message   发送的消息
+     */
+    public void sendMessageToUser(String token,String message) {
+        if (map.get(token) == null) {
+            LOG.error("用户不存在,或者用户已断开连接");
+        }
+        Session session = map.get(token);
+        LOG.info("推送消息给 {}，内容为：{}", token, message);
+
+        try {
+            session.getBasicRemote().sendText(message);
+        }catch (IOException e) {
+            LOG.error("推送消息给 {} 失败，内容为：{}", token, message);
+        }
+
+        LOG.info("推送给 {} 成功，内容为：{}", token, message);
+    }
+
+    /**
+     * 发送消息给所有用户（后续使用该方法替代sendInfo）
+     * @param message       发送的消息
+     */
+    public void sendMessageToAllUser(String message) {
         for (String token : map.keySet()) {
             Session session = map.get(token);
             try {

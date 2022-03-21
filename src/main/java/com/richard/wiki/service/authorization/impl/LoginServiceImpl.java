@@ -2,11 +2,14 @@ package com.richard.wiki.service.authorization.impl;
 
 import com.richard.wiki.common.CommonConstant;
 import com.richard.wiki.domain.User;
+import com.richard.wiki.domain.UserToken;
 import com.richard.wiki.examples.UserExample;
 import com.richard.wiki.domain.UserInfo;
+import com.richard.wiki.examples.UserTokenExample;
 import com.richard.wiki.exception.BusinessException;
 import com.richard.wiki.exception.BusinessExceptionCode;
 import com.richard.wiki.mapper.UserMapper;
+import com.richard.wiki.mapper.UserTokenMapper;
 import com.richard.wiki.req.UserLoginReq;
 import com.richard.wiki.service.authorization.LoginService;
 import com.richard.wiki.util.SnowFlake;
@@ -32,6 +35,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserTokenMapper userTokenMapper;
+
     @Override
     public UserInfo login(UserLoginReq req) {
         // 对传过来的密码进行加密（因为数据库中存储的已经是两次加密的密码）
@@ -54,6 +60,9 @@ public class LoginServiceImpl implements LoginService {
         UserInfo userInfo = UserInfo.builder().loginName(userDb.getLoginName()).userName(userDb.getName()).userId(String.valueOf(userDb.getId())).token(token).build();
         // 存储用户信息进redis中
         redisTemplate.boundValueOps(CommonConstant.USER_TOKEN + CommonConstant.DELIMITER + token).set(userInfo,CommonConstant.DEFAULT_REDIS_EXPIRE_TIME, TimeUnit.HOURS);
+        // 同时将用户信息、token存储至member_token表中
+        UserToken userToken = UserToken.builder().userId(String.valueOf(userDb.getId())).accessToken(token).build();
+        userTokenMapper.insertSelective(userToken);
 
         // 如果登录成功，返回用户信息（后续还需要返回用户头像）
         return userInfo;
@@ -107,8 +116,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void deleteToken(String token) {
-        token = CommonConstant.USER_TOKEN + CommonConstant.DELIMITER + token;
-        boolean isDeleted = redisTemplate.delete(token);
+        boolean isDeleted = redisTemplate.delete(CommonConstant.USER_TOKEN + CommonConstant.DELIMITER + token);
+        // 同时删除数据库里的token信息
+        UserTokenExample delExample = new UserTokenExample();
+        delExample.createCriteria().andAccessTokenEqualTo(token);
+        userTokenMapper.deleteByExample(delExample);
+
         if (!isDeleted) {
             throw new BusinessException(BusinessExceptionCode.ERROR_LOGOUT);
         }

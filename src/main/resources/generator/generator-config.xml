@@ -41,6 +41,6 @@
                              targetPackage="com.richard.wiki.mapper"
                              type="XMLMAPPER"/>
 
-        <table tableName="ebook" />
+        <table tableName="user_token" />
     </context>
 </generatorConfiguration>

@@ -1,6 +1,6 @@
 package com.richard.wiki.domain;
 
-public class MemberToken {
+public class UserToken {
     private Integer id;
 
     private String userId;

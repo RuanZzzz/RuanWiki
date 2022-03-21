@@ -104,8 +104,8 @@ create table `record` (
 ) engine=innodb default charset=utf8mb4 comment='操作记录';
 
 -- 用户token表
-drop table if exists `member_token`;
-create table `member_token` (
+drop table if exists `user_token`;
+create table `user_token` (
     `id` int(11) not null auto_increment,
     `user_id` varchar(255) not null default '' comment '用户id',
     `access_token` varchar(255) not null default '' comment '授权码',

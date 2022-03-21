@@ -1,16 +1,16 @@
-package com.richard.wiki.examples;
+package com.richard.wiki.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberTokenExample {
+public class UserTokenExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public MemberTokenExample() {
+    public UserTokenExample() {
         oredCriteria = new ArrayList<>();
     }
 

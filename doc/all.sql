@@ -102,3 +102,15 @@ create table `record` (
     `method_name` varchar(50) not null comment '请求方法',
     `service_name` varchar(50) not null
 ) engine=innodb default charset=utf8mb4 comment='操作记录';
+
+-- 用户token表
+drop table if exists `member_token`;
+create table `member_token` (
+    `id` int(11) not null auto_increment,
+    `user_id` varchar(255) not null default '' comment '用户id',
+    `access_token` varchar(255) not null default '' comment '授权码',
+    `expired_at` varchar(10) not null default '0' comment '过期时间',
+    `created_at` varchar(10) not null default '0' comment '创建时间',
+    `updated_at` varchar(10) not null default '0' comment '更新时间',
+    primary key (`id`)
+) engine=innodb default charset=utf8mb4 comment='用户token';

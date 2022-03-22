@@ -3,6 +3,7 @@ package com.richard.wiki.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.richard.wiki.domain.Ebook;
+import com.richard.wiki.domain.UserInfo;
 import com.richard.wiki.examples.EbookExample;
 import com.richard.wiki.mapper.EbookMapper;
 import com.richard.wiki.req.EbookQueryReq;
@@ -77,12 +78,13 @@ public class EbookService {
     /**
      * 保存
      */
-    public void save(EbookSaveReq req) {
+    public void save(EbookSaveReq req, UserInfo userInfo) {
         if (ObjectUtils.isEmpty(req.getId())) {
             // 新增
-            Ebook ebook = Ebook.builder().id(snowFlake.nextId()).name(req.getName()).categoryId1(req.getCategory1Id()).categoryId2(req.getCategory2Id()).description(req.getDescription()).cover(req.getImgDirPath()).build();
+            Ebook ebook = Ebook.builder().id(snowFlake.nextId()).name(req.getName()).categoryId1(req.getCategory1Id()).categoryId2(req.getCategory2Id()).description(req.getDescription()).recordId(userInfo.getUserId()).recordName(userInfo.getUserName()).cover(req.getImgDirPath()).build();
             ebookMapper.insert(ebook);
         }else {
+            // 编辑不需要更新record的相关信息
             Ebook ebook = Ebook.builder().id(req.getId()).name(req.getName()).categoryId1(req.getCategory1Id()).categoryId2(req.getCategory2Id()).description(req.getDescription()).cover(req.getImgDirPath()).build();
             ebookMapper.updateByPrimaryKeySelective(ebook);
         }

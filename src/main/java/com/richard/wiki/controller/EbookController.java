@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/ebook")
-public class EbookController {
+public class EbookController extends BaseController {
 
     @Autowired
     private EbookService ebookService;
@@ -30,7 +30,7 @@ public class EbookController {
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public CommonResp save(@Valid @RequestBody EbookSaveReq req) {
         CommonResp resp = new CommonResp<>();
-        ebookService.save(req);
+        ebookService.save(req,this.getCurrentUser());
         return resp;
     }
 

@@ -20,4 +20,9 @@ public class WsService {
         webSocketServer.sendInfo(message);
     }
 
+    @Async
+    public void sendMessageToUser(String token, String message) {
+        webSocketServer.sendMessageToUser(token,message);
+    }
+
 }

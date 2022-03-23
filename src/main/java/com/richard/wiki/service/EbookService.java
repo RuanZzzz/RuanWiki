@@ -4,8 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.richard.wiki.domain.Ebook;
 import com.richard.wiki.domain.UserInfo;
+import com.richard.wiki.domain.UserToken;
 import com.richard.wiki.examples.EbookExample;
+import com.richard.wiki.examples.UserTokenExample;
 import com.richard.wiki.mapper.EbookMapper;
+import com.richard.wiki.mapper.UserTokenMapper;
 import com.richard.wiki.req.EbookQueryReq;
 import com.richard.wiki.req.EbookSaveReq;
 import com.richard.wiki.resp.EbookQueryResp;
@@ -16,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -33,6 +37,12 @@ public class EbookService {
 
     @Autowired
     private SnowFlake snowFlake;
+
+    @Autowired
+    private WsService wsService;
+
+    @Autowired
+    private UserTokenMapper userTokenMapper;
 
     public PageResp<EbookQueryResp> list(EbookQueryReq ebookQueryReq) {
         EbookExample ebookExample = new EbookExample();
@@ -96,6 +106,31 @@ public class EbookService {
      */
     public void delete(Long id) {
         ebookMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 电子书点赞逻辑（待完善）
+     * @param id            电子书id
+     * @param userInfo      当前点赞的用户信息
+     */
+    public void vote(Long id,UserInfo userInfo) {
+        // TODO:需要将用户id和文章id，放到用户点赞表中
+
+        // 先获取该文章的详情信息
+        Ebook ebookDb = ebookMapper.selectByPrimaryKey(id);
+        // 再根据该文章的作者，查找他的token
+        UserTokenExample userTokenExample = new UserTokenExample();
+        userTokenExample.createCriteria().andUserIdEqualTo(ebookDb.getRecordId());
+        List<UserToken> userTokens = userTokenMapper.selectByExample(userTokenExample);
+        if (CollectionUtils.isEmpty(userTokens)) {
+            // 如果不存在，则不发送信息
+            LOG.info("用户已经下线或未登录");
+        }
+
+        // 否则给用户发送消息，TODO：后续可以在消息中心通知谁点赞的
+        String userToken = userTokens.get(0).getAccessToken();
+        wsService.sendMessageToUser(userToken,"您的文章【" + ebookDb.getName() + "】被" + userInfo.getUserName() + "点赞");
+        System.out.println("结束");
     }
 
 }

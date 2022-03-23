@@ -41,4 +41,11 @@ public class EbookController extends BaseController {
         return resp;
     }
 
+    @RequestMapping(value = "/vote/{id}", method = RequestMethod.GET)
+    public CommonResp vote(@PathVariable Long id) {
+        CommonResp commonResp = new CommonResp();
+        ebookService.vote(id,this.getCurrentUser());
+        return commonResp;
+    }
+
 }

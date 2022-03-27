@@ -1,9 +1,13 @@
 package com.richard.wiki.websocket;
 
+import com.richard.wiki.examples.UserTokenExample;
+import com.richard.wiki.mapper.UserTokenMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
@@ -15,6 +19,11 @@ import java.util.HashMap;
 public class WebSocketServer {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebSocketServer.class);
+
+    private static UserTokenMapper userTokenMapper;
+    public static void setUserTokenMapper(UserTokenMapper userTokenMapper) {
+        WebSocketServer.userTokenMapper = userTokenMapper;
+    }
 
     /**
      * 每个客户端一个token（使用用户的token）
@@ -38,6 +47,10 @@ public class WebSocketServer {
      */
     @OnClose
     public void onClose(Session session) {
+        UserTokenExample delTokenExample = new UserTokenExample();
+        delTokenExample.createCriteria().andAccessTokenEqualTo(this.token);
+        userTokenMapper.deleteByExample(delTokenExample);
+
         map.remove(this.token);
         LOG.info("连接关闭，token：{}，session id：{}！当前连接数：{}", this.token, session.getId(), map.size());
     }
